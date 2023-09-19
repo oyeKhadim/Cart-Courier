@@ -1,9 +1,9 @@
 
-# Online Ordering App
+# Cart Courier
 
 ## Summary
 
-The Online Ordering App is a delivery application that connects customers with local restaurants and grocery stores, providing a convenient way to order and have their items delivered to their doorstep. The app aims to automate and modernize the existing manual ordering system by utilizing computerized equipment and comprehensive software, ensuring efficient storage, access, and manipulation of valuable customer data.
+The Court Courier is a delivery application that connects customers with local restaurants and grocery stores, providing a convenient way to order and have their items delivered to their doorstep. The app aims to automate and modernize the existing manual ordering system by utilizing computerized equipment and comprehensive software, ensuring efficient storage, access, and manipulation of valuable customer data.
 
 ## Functional Requirements
 
