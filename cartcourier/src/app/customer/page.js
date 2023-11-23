@@ -1,6 +1,6 @@
 "use client";
 import CustomerSidebar from "../../components/customer-sidebar";
-import ItemCard from "../../components/ItemCard"; // Import the ItemCard component
+import ItemCard from "../../components/item-card"; // Import the ItemCard component
 
 const CustomerDashboardPage = () => {
 	const items = [
