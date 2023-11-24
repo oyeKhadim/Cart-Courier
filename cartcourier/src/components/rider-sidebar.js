@@ -9,7 +9,7 @@ import {
 const RiderSidebar = ({ btnClicked }) => {
 	const rider = {
 		name: "Rider Name",
-		profilePicture: "https://via.placeholder.com/150", // Replace with actual profile picture URL
+		profilePicture: "https://via.placeholder.com/150",
 	};
 
 	const handleViewProfile = () => {
