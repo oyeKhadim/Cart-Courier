@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
 	FaUser,
 	FaClipboardList,
@@ -9,7 +10,8 @@ import {
 	FaSignOutAlt,
 } from "react-icons/fa";
 
-const AdminSidebar = ({ btnClicked }) => {
+const AdminSidebar = () => {
+	const router = useRouter();
 	// Mock admin data
 	const admin = {
 		name: "Admin Name",
@@ -23,38 +25,44 @@ const AdminSidebar = ({ btnClicked }) => {
 	}
 	const handleViewProfile = () => {
 		setSelectedTab("profile");
-		btnClicked(selectedTab);
+		//btnClicked(selectedTab);
 		console.log("Viewing profile...");
+		router.push("/admin/profile");
 	};
 
 	const handleRestaurants = () => {
 		setSelectedTab("restaurants");
-		btnClicked(selectedTab);
+		//btnClicked(selectedTab);
 		console.log("Viewing restaurants...");
+		router.push("/admin/resturants");
 	};
 
 	const handleProducts = () => {
 		setSelectedTab("products");
-		btnClicked(selectedTab);
+		//btnClicked(selectedTab);
 		console.log("Viewing products...");
+		router.push("/admin/products");
 	};
 
 	const handleAdmins = () => {
 		setSelectedTab("admins");
-		btnClicked(selectedTab);
+		//btnClicked(selectedTab);
 		console.log("Viewing admins...");
+		router.push("/admin/admins");
 	};
 
 	const handleRiders = () => {
 		setSelectedTab("riders");
-		btnClicked(selectedTab);
+		//btnClicked(selectedTab);
 		console.log("Viewing riders...");
+		router.push("/admin/riders");
 	};
 
 	const handleManageAccounts = () => {
 		setSelectedTab("manageAccounts");
-		btnClicked(selectedTab);
+		//btnClicked(selectedTab);
 		console.log("Managing accounts...");
+		router.push("/admin/accounts");
 	};
 	const handleLogout = () => {
 		setSelectedTab("logout");
@@ -62,7 +70,9 @@ const AdminSidebar = ({ btnClicked }) => {
 			// Logic for handling logout
 			console.log("Logging out...");
 		}
-		btnClicked(selectedTab);
+		router.push("/");
+
+		//btnClicked(selectedTab);
 	};
 	return (
 		<div className="w-64 h-screen bg-green-200 p-4 rounded-r-lg">
