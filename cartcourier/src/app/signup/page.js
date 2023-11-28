@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { showToast } from "react-next-toast";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
 	const [fullName, setFullName] = useState("");
@@ -9,15 +11,44 @@ export default function SignUp() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [profilePic, setProfilePic] = useState(null);
+	const router = useRouter();
 
-	const handleSignUp = () => {
-		// For front-end demonstration, log form data
-		console.log("Full Name:", fullName);
-		console.log("Phone Number:", phoneNumber);
-		console.log("Email:", email);
-		console.log("Username:", username);
-		console.log("Password:", password);
-		console.log("Profile Picture:", profilePic);
+	const handleSignUp = async () => {
+		try {
+			const response = await fetch("/api/signup", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					fullName,
+					phoneNumber,
+					email,
+					username,
+					password,
+					profilePic,
+				}),
+			});
+
+			if (response.ok) {
+				// Sign-up successful
+				const data = await response.json();
+				console.log(data.message);
+				showToast.success("Signed Up Successfully!");
+				// router.push("/");
+			} else {
+				// Handle sign-up error
+				const errorData = await response.json();
+				console.error("Sign-up failed:", errorData.message);
+				showToast.error( errorData.message);
+				// Display error message to the user or perform other actions
+			}
+		} catch (error) {
+			// showToast.error("Error during sign-up:", error.message);
+
+			console.error("Error during sign-up:", error.message);
+			// Handle fetch error
+		}
 	};
 
 	const handleFileChange = (e) => {
@@ -26,6 +57,7 @@ export default function SignUp() {
 			const reader = new FileReader();
 			reader.onload = (event) => {
 				setProfilePic(event.target.result);
+				console.log(event.target.result);
 			};
 			reader.readAsDataURL(file);
 		}
