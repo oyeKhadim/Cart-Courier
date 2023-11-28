@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
 	FaUser,
 	FaUserCircle,
@@ -6,30 +7,31 @@ import {
 	FaSignOutAlt,
 } from "react-icons/fa";
 
-const RiderSidebar = ({ btnClicked }) => {
+const RiderSidebar = () => {
+	const router = useRouter();
 	const rider = {
 		name: "Rider Name",
 		profilePicture: "https://via.placeholder.com/150",
 	};
 
 	const handleViewProfile = () => {
-		btnClicked("profile");
 		console.log("Viewing profile...");
+		router.push("/rider/profile");
 	};
 
 	const handleMyAccount = () => {
-		btnClicked("account");
 		console.log("Managing accounts...");
+		router.push("/rider/account");
 	};
 
 	const handleOrders = () => {
-		btnClicked("orders");
 		console.log("Handling orders...");
+		router.push("/rider/orders");
 	};
 
 	const handleLogout = () => {
-		btnClicked("logout");
 		console.log("Logging out...");
+		router.push("/");
 	};
 
 	return (
