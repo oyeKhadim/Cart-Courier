@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
 	FaUser,
 	FaShoppingCart,
@@ -7,12 +8,25 @@ import {
 	FaSignOutAlt,
 } from "react-icons/fa";
 
-const CustomerSidebar = ({ btnClicked }) => {
-	// Mock user data
-	const user = {
-		name: "Khadim Hussain",
-		profilePicture: "https://shorturl.at/fhl04", // Replace with actual profile picture URL
-	};
+const CustomerSidebar = () => {
+	const router = useRouter();
+	const [user, setUser] = useState(null); // State to store user data
+
+	useEffect(() => {
+		// Fetch user data from localStorage on component mount
+		const storedUser = localStorage.getItem("user");
+		if (storedUser&&storedUser.includes("customer")) {
+			// If user data exists in localStorage, parse and set it in state
+			setUser(JSON.parse(storedUser));
+		} else {
+			router.push("/");
+		}
+	}, []);
+	// // Mock user data
+	// const user = {
+	// 	name: "Khadim Hussain",
+	// 	profilePicture: "https://shorturl.at/fhl04", // Replace with actual profile picture URL
+	// };
 	let selectedTab;
 	// const [selectedTab, setSelectedTab] = useState("");
 	function setSelectedTab(st) {
@@ -26,7 +40,8 @@ const CustomerSidebar = ({ btnClicked }) => {
 			// Logic for handling profile view
 			console.log("Viewing profile...");
 		}
-		btnClicked(selectedTab);
+
+		router.push("/customer/profile");
 	};
 
 	const handleMyCart = () => {
@@ -35,7 +50,7 @@ const CustomerSidebar = ({ btnClicked }) => {
 			// Logic for handling cart
 			console.log("Viewing cart...");
 		}
-		btnClicked(selectedTab);
+		router.push("/customer/cart");
 	};
 
 	const handleMyOrders = () => {
@@ -44,7 +59,7 @@ const CustomerSidebar = ({ btnClicked }) => {
 			// Logic for handling orders
 			console.log("Viewing orders...");
 		}
-		btnClicked(selectedTab);
+		router.push("/customer/orders");
 	};
 
 	const handleMyAccount = () => {
@@ -53,7 +68,7 @@ const CustomerSidebar = ({ btnClicked }) => {
 			// Logic for handling account
 			console.log("Viewing account...");
 		}
-		btnClicked(selectedTab);
+		router.push("/customer/account");
 	};
 
 	const handleLogout = () => {
@@ -62,19 +77,20 @@ const CustomerSidebar = ({ btnClicked }) => {
 			// Logic for handling logout
 			console.log("Logging out...");
 		}
-		btnClicked(selectedTab);
+		localStorage.clear();
+		router.push("/");
 	};
 
 	return (
 		<div className="w-64 h-screen bg-green-200 p-4 rounded-r-lg">
-			<div className="text-center mb-4">
+			{user&&<div className="text-center mb-4">
 				<img
-					src={user.profilePicture}
+					src={user.profilePic}
 					alt="Profile"
 					className="inline-block h-16 w-16 rounded-full ring-2 ring-indigo-200 mb-2"
 				/>
-				<p className="text-sm text-gray-700 font-semibold">{user.name}</p>
-			</div>
+				<p className="text-sm text-gray-700 font-semibold">{user.fullName}</p>
+			</div>}
 			<div className="space-y-2">
 				<button
 					onClick={handleViewProfile}
