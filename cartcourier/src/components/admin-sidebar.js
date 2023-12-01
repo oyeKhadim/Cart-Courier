@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { useRouter } from "next/navigation";
 import {
 	FaUser,
@@ -12,12 +12,18 @@ import {
 
 const AdminSidebar = () => {
 	const router = useRouter();
-	// Mock admin data
-	const admin = {
-		name: "Admin Name",
-		profilePicture: "https://via.placeholder.com/150", // Replace with actual profile picture URL
-	};
+		const [user, setUser] = useState(null); // State to store user data
 
+		useEffect(() => {
+			// Fetch user data from localStorage on component mount
+			const storedUser = localStorage.getItem("user");
+			if (storedUser&&storedUser.includes("admin")) {
+				// If user data exists in localStorage, parse and set it in state
+				setUser(JSON.parse(storedUser));
+			} else {
+				router.push("/");
+			}
+		}, []);
 	// const [selectedTab, setSelectedTab] = useState(true);
 	let selectedTab;
 	function setSelectedTab(st) {
@@ -70,20 +76,21 @@ const AdminSidebar = () => {
 			// Logic for handling logout
 			console.log("Logging out...");
 		}
+		localStorage.clear();
 		router.push("/");
 
 		//btnClicked(selectedTab);
 	};
 	return (
 		<div className="w-64 h-screen bg-green-200 p-4 rounded-r-lg">
-			<div className="text-center mb-4">
+			{user&&<div className="text-center mb-4">
 				<img
-					src={admin.profilePicture}
+					src={user.profilePic}
 					alt="Profile"
 					className="inline-block h-16 w-16 rounded-full ring-2 ring-indigo-200 mb-2"
 				/>
-				<p className="text-sm text-gray-700 font-semibold">{admin.name}</p>
-			</div>
+				<p className="text-sm text-gray-700 font-semibold">{user.fullName}</p>
+			</div>}
 			<div className="space-y-2">
 				<button
 					onClick={handleViewProfile}
