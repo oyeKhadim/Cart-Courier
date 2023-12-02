@@ -29,10 +29,7 @@ const CartItem = ({ item }) => {
 					</p>
 				</div>
 			</div>
-			<div className="border-t pt-2">
-				<p className="text-sm text-gray-600">{item.description}</p>
-				{/* Add other item details or action buttons if needed */}
-			</div>
+			
 		</div>
 	);
 };
