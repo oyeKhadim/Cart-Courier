@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
 	FaUser,
@@ -9,11 +9,18 @@ import {
 
 const RiderSidebar = () => {
 	const router = useRouter();
-	const rider = {
-		name: "Rider Name",
-		profilePicture: "https://via.placeholder.com/150",
-	};
+	const [user, setUser] = useState(null); // State to store user data
 
+	useEffect(() => {
+		// Fetch user data from localStorage on component mount
+		const storedUser = localStorage.getItem("user");
+		if (storedUser && storedUser.includes("rider")) {
+			// If user data exists in localStorage, parse and set it in state
+			setUser(JSON.parse(storedUser));
+		} else {
+			router.push("/");
+		}
+	}, []);
 	const handleViewProfile = () => {
 		console.log("Viewing profile...");
 		router.push("/rider/profile");
@@ -31,19 +38,22 @@ const RiderSidebar = () => {
 
 	const handleLogout = () => {
 		console.log("Logging out...");
+		localStorage.clear();
 		router.push("/");
 	};
 
 	return (
 		<div className="w-64 h-screen bg-green-200 p-4 rounded-r-lg">
-			<div className="text-center mb-4">
-				<img
-					src={rider.profilePicture}
-					alt="Profile"
-					className="inline-block h-16 w-16 rounded-full ring-2 ring-indigo-200 mb-2"
-				/>
-				<p className="text-sm text-gray-700 font-semibold">{rider.name}</p>
-			</div>
+			{user && (
+				<div className="text-center mb-4">
+					<img
+						src={user.fullName}
+						alt="Profile"
+						className="inline-block h-16 w-16 rounded-full ring-2 ring-indigo-200 mb-2"
+					/>
+					<p className="text-sm text-gray-700 font-semibold">{user.fullName}</p>
+				</div>
+			)}
 			<div className="space-y-2">
 				<button
 					onClick={handleViewProfile}
