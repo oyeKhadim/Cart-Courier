@@ -47,7 +47,7 @@ const RiderSidebar = () => {
 			{user && (
 				<div className="text-center mb-4">
 					<img
-						src={user.fullName}
+						src={user.profilePic}
 						alt="Profile"
 						className="inline-block h-16 w-16 rounded-full ring-2 ring-indigo-200 mb-2"
 					/>

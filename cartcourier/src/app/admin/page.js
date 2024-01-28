@@ -1,6 +1,6 @@
 "use client";
 import AdminSidebar from "../../components/admin-sidebar";
-
+//Main Page of Admin
 const AdminDashboardPage = () => {
 	return (
 		<div className="flex">

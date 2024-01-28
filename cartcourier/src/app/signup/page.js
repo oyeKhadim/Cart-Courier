@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { showToast } from "react-next-toast";
 import { useRouter } from "next/navigation";
+import { saveLog } from "../../lib/log";
 
 export default function SignUp() {
 	const [fullName, setFullName] = useState("");
@@ -12,7 +13,7 @@ export default function SignUp() {
 	const [password, setPassword] = useState("");
 	const [profilePic, setProfilePic] = useState(null);
 	const router = useRouter();
-
+	//CAlling api for signup
 	const handleSignUp = async () => {
 		try {
 			const response = await fetch("/api/signup", {
@@ -34,18 +35,21 @@ export default function SignUp() {
 				// Sign-up successful
 				const data = await response.json();
 				console.log(data.message);
+				await saveLog("User Signup", "handleSignUp", "Signed Up Successfully!");
 				showToast.success("Signed Up Successfully!");
-				// router.push("/");
+				router.push("/");
 			} else {
 				// Handle sign-up error
 				const errorData = await response.json();
+				await saveLog("User Signup", "handleSignUp", errorData.message);
 				console.error("Sign-up failed:", errorData.message);
-				showToast.error( errorData.message);
+				showToast.error(errorData.message);
 				// Display error message to the user or perform other actions
 			}
 		} catch (error) {
 			// showToast.error("Error during sign-up:", error.message);
 
+			await saveLog("User Signup", "handleSignUp", errorData.message);
 			console.error("Error during sign-up:", error.message);
 			// Handle fetch error
 		}

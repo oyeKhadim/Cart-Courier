@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import connectionstr from "../../../lib/db";
 import Log from "../../../lib/models/logs";
 import { NextResponse } from "next/server";
-
+//POSTing logs in database
 export async function POST(req, res) {
 	try {
 		const payload = await req.json();

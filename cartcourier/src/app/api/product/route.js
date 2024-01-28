@@ -3,6 +3,8 @@ import connectionstr from "../../../lib/db";
 import Product from "../../../lib/models/product";
 import { NextResponse } from "next/server";
 import { saveLog } from "../../../lib/log";
+
+//Adding products in db
 export async function POST(req, res) {
 	try {
 		const payload = await req.json();
@@ -23,6 +25,7 @@ export async function POST(req, res) {
 		);
 	}
 }
+//Getting product from db
 export async function GET(req, res) {
 	try {
 		await mongoose.connect(connectionstr);

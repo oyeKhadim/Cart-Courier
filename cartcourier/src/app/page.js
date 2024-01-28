@@ -28,6 +28,8 @@ export default function Home() {
 				localStorage.setItem("user", JSON.stringify(user));
 				console.log(data.message);
 				showToast.success("Login successful!");
+
+				// Redirect based on user role after successful login
 				if (user.role == "customer") {
 					router.push("/customer");
 				} else if (user.role == "admin") {
@@ -42,8 +44,8 @@ export default function Home() {
 				showToast.error(errorData.message);
 			}
 		} catch (error) {
-				await saveLog("User Login", "handleLogin", errorData.message);
-			console.error("Error during login:", error.message);
+				await saveLog("User Login", "handleLogin", error);
+			console.error("Error during login:", error);
 		}
 	};
 
